@@ -1,16 +1,11 @@
 # create_places
 
-A new Flutter project.
+flutter application to use native operating system features
 
-## Getting Started
+## Resources
 
-This project is a starting point for a Flutter application.
+Hits:
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [Camera: gallery and take photos in real time]
+- Google maps: current location and map access to select place
+- SQLite: data persistence
