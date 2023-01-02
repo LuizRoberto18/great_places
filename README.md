@@ -6,6 +6,6 @@ flutter application to use native operating system features
 
 Hits:
 
-- [Camera: gallery and take photos in real time]
+- Camera: gallery and take photos in real time
 - Google maps: current location and map access to select place
 - SQLite: data persistence
