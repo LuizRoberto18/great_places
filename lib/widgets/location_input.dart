@@ -1,10 +1,14 @@
+import 'package:create_places/screens/map_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
 import '../utils/location.dart';
 
 class LocationInput extends StatefulWidget {
-  const LocationInput({Key? key}) : super(key: key);
+  final Function onSelectPosition;
+
+  const LocationInput({Key? key, required this.onSelectPosition}) : super(key: key);
 
   @override
   State<LocationInput> createState() => _LocationInputState();
@@ -13,14 +17,39 @@ class LocationInput extends StatefulWidget {
 class _LocationInputState extends State<LocationInput> {
   String? _previewImageUrl;
 
-  Future<void> _getCurrentUserLocation() async {
-    final locData = await Location().getLocation();
-    final staticMapImageUrl =
-        LocationMap.generateLocationPreviewImage(latitude: locData.latitude, longitude: locData.longitude);
-
+  void _showPreview(
+    double lat,
+    double lng,
+  ) {
+    final staticMapImageUrl = LocationMap.generateLocationPreviewImage(
+      latitude: lat,
+      longitude: lng,
+    );
     setState(() {
       _previewImageUrl = staticMapImageUrl;
     });
+  }
+
+  Future<void> _getCurrentUserLocation() async {
+    try {
+      final locData = await Location().getLocation();
+      _showPreview(locData.latitude!, locData.longitude!);
+      widget.onSelectPosition(LatLng(locData.latitude!, locData.longitude!));
+    } catch (e) {
+      return;
+    }
+  }
+
+  Future<void> _selectOnMap() async {
+    final LatLng selectedPosition = await Navigator.of(context).push(MaterialPageRoute(
+      fullscreenDialog: true,
+      builder: (context) => const MapScreen(),
+    ));
+
+    if (selectedPosition == null) return;
+
+    _showPreview(selectedPosition.latitude, selectedPosition.longitude);
+    widget.onSelectPosition(selectedPosition);
   }
 
   @override
@@ -59,7 +88,7 @@ class _LocationInputState extends State<LocationInput> {
               style: TextButton.styleFrom(
                 foregroundColor: Theme.of(context).colorScheme.primary,
               ),
-              onPressed: () {},
+              onPressed: _selectOnMap,
             ),
           ],
         ),

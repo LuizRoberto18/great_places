@@ -38,11 +38,17 @@ class PlacesListScreen extends StatelessWidget {
                               backgroundImage: FileImage(gratePlaces.itemByIndex(index).image),
                             ),
                             title: Text(gratePlaces.itemByIndex(index).title),
-                            onTap: () {},
+                            subtitle: Text(gratePlaces.itemByIndex(index).location.address.toString()),
+                            onTap: () {
+                              Navigator.of(context).pushNamed(
+                                AppRoutes.placeDetail,
+                                arguments: gratePlaces.itemByIndex(index),
+                              );
+                            },
                           );
                         },
                       ),
-                child: Center(
+                child: const Center(
                   child: Text("Nenhum local cadastrado"),
                 ),
               ),

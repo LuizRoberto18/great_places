@@ -1,4 +1,5 @@
 import 'package:create_places/providers/grate_places.dart';
+import 'package:create_places/screens/place_detail_screen.dart';
 import 'package:create_places/screens/place_form_screen.dart';
 import 'package:create_places/screens/places_list_screen.dart';
 import 'package:create_places/utils/app_routes.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         home: const PlacesListScreen(),
         routes: {
           AppRoutes.placeForm: (ctx) => const PlaceFormScreen(),
+          AppRoutes.placeDetail: (ctx) => const PlaceDetailScreen(),
         },
       ),
     );
